@@ -55,8 +55,8 @@ void ssd1306_setup_continuous_horizontal_scroll(uint32_t i2c, bool scroll_left,
                                                 uint8_t scroll_interval,
                                                 uint8_t end_page) {
   ssd1306_send_data(i2c, scroll_left
-                             ? SSD1306_SETUP_CONTINUOUS_HORIZONTAL_SCROLL
-                             : SSD1306_SETUP_CONTINUOUS_HORIZONTAL_SCROLL_LEFT);
+                             ? SSD1306_SETUP_CONTINUOUS_HORIZONTAL_SCROLL_LEFT
+                             : SSD1306_SETUP_CONTINUOUS_HORIZONTAL_SCROLL);
   ssd1306_send_data(i2c, 0);
   ssd1306_send_data(i2c, start_page);
   ssd1306_send_data(i2c, scroll_interval);
@@ -70,8 +70,8 @@ void ssd1306_setup_continuous_vertical_and_horizontal_scroll(
     uint8_t end_page, uint8_t vertical_scroll_offset) {
   ssd1306_send_data(
       i2c, scroll_left
-               ? SSD1306_SETUP_CONTINUOUS_VERTICAL_HORIZONTAL_SCROLL
-               : SSD1306_SETUP_CONTINUOUS_VERTICAL_HORIZONTAL_SCROLL_LEFT);
+               ? SSD1306_SETUP_CONTINUOUS_VERTICAL_HORIZONTAL_SCROLL_LEFT
+               : SSD1306_SETUP_CONTINUOUS_VERTICAL_HORIZONTAL_SCROLL);
   ssd1306_send_data(i2c, 0);
   ssd1306_send_data(i2c, start_page);
   ssd1306_send_data(i2c, scroll_interval);
@@ -199,14 +199,14 @@ void ssd1306_init(uint32_t i2c) {
   ssd1306_send_control(i2c);
 
   ssd1306_set_display_off(i2c);
-  ssd1306_set_multiplex_ratio(i2c, 63);
+  ssd1306_set_multiplex_ratio(i2c, 63); // device takes ratio - 1
   ssd1306_set_display_offset(i2c, 0);
   ssd1306_set_display_start_line(i2c, 0);
   ssd1306_set_segment_remap(i2c, true);
   ssd1306_set_com_output_scan_direction(i2c, true);
   ssd1306_set_com_pins_hardware_configuration(i2c, true, false);
-  ssd1306_set_contrast_control(i2c, 196);
-  ssd1306_entire_display_on(i2c);
+  ssd1306_set_contrast_control(i2c, 0xc4);
+  ssd1306_entire_display_on_ram(i2c);
   ssd1306_set_display_normal(i2c);
   ssd1306_set_display_clock_and_oscillator_freq(i2c, 8, 0);
   ssd1306_enable_charge_pump(i2c);
