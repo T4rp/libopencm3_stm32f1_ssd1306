@@ -4,3 +4,5 @@
 **.elf
 **.bin
 **/compile_commands.json
+**/compile_flags.txt
+libopencm3

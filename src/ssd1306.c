@@ -1,5 +1,5 @@
-#include "ssd1306.h"
 #include <libopencm3/stm32/i2c.h>
+#include <ssd1306.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -215,7 +215,8 @@ void ssd1306_init(uint32_t i2c) {
 
   // ssd1306_set_memory_addressing_mode(i2c, SSD1306_ADDRESSING_MODE_PAGE);
   // ssd1306_set_precharge_period(i2c, 1, 15);
-  // ssd1306_set_v_comh_deselect_level(i2c, SSD1306_VCOMH_DESELECT_LEVEL_077_VCC);
+  // ssd1306_set_v_comh_deselect_level(i2c,
+  // SSD1306_VCOMH_DESELECT_LEVEL_077_VCC);
 
   while (!(I2C_SR1(i2c) & I2C_SR1_BTF))
     ;
