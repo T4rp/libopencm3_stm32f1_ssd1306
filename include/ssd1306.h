@@ -76,7 +76,7 @@ void ssd1306_set_page_start_address(uint32_t i2c, uint8_t page_start);
 
 // hardware configuration commands
 #define SSD1306_SET_DISPLAY_START_LINE 0b01000000
-#define SSD1306_SET_SEGMENT_REMAP 0b01010000
+#define SSD1306_SET_SEGMENT_REMAP 0xA0
 #define SSD1306_SET_MULTIPLEX_RATIO 0xA8
 #define SSD1306_SET_COM_OUTPUT_SCAN_DIRECTION 0b11000000
 #define SSD1306_SET_DISPLAY_OFFSET 0xD3
