@@ -52,6 +52,7 @@ void ssd1306_set_vertical_scroll_area(uint32_t i2c, uint8_t top_rows,
                                       uint8_t rows);
 
 // address setting commands
+#define SSD1306_SET_LOWER_COLUMN_START_ADDRESS 0x00
 #define SSD1306_SET_ADDRESSING_MODE 0x20
 #define SSD1306_SET_COLUMN_MODE 0x21
 #define SSD1306_SET_PAGE_ADDRESS 0x22

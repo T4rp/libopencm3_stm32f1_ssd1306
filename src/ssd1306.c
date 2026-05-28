@@ -95,7 +95,7 @@ void ssd1306_set_vertical_scroll_area(uint32_t i2c, uint8_t top_rows,
 }
 
 void ssd1306_set_lower_column_start_address(uint32_t i2c, uint8_t nibble) {
-  ssd1306_send_data(i2c, nibble);
+  ssd1306_send_data(i2c, SSD1306_SET_LOWER_COLUMN_START_ADDRESS | nibble);
 }
 
 void ssd1306_set_higher_column_start_address(uint32_t i2c, uint8_t nibble) {
