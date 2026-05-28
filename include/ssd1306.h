@@ -8,7 +8,8 @@
 
 void ssd1306_send_address(uint32_t i2c, uint8_t address);
 void ssd1306_send_data(uint32_t i2c, uint8_t data);
-void ssd1306_send_control(uint32_t i2c);
+void ssd1306_send_control_command(uint32_t i2c, bool last);
+void ssd1306_send_control_data(uint32_t i2c, bool last);
 void ssd1306_init(uint32_t i2c);
 
 // fundemental commands

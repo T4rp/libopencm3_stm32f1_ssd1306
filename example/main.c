@@ -1,8 +1,8 @@
-#include <ssd1306.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/i2c.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/usart.h>
+#include <ssd1306.h>
 #include <stdio.h>
 
 extern void initialise_monitor_handles(void);
@@ -30,6 +30,23 @@ void setup_gpio() {
                 GPIO13);
 }
 
+void entire_display_on() {
+  i2c_send_start(I2C1);
+
+  while (!((I2C_SR1(I2C1) & I2C_SR1_SB) &
+           (I2C_SR2(I2C1) & (I2C_SR2_MSL | I2C_SR2_BUSY))))
+    ;
+
+  ssd1306_send_address(I2C1, SSD1306_DEFAULT_ADDRESS);
+  ssd1306_send_control_command(I2C1, false);
+  ssd1306_entire_display_on(I2C1);
+
+  while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))
+    ;
+
+  i2c_send_stop(I2C1);
+}
+
 int main() {
   initialise_monitor_handles();
   rcc_clock_setup_pll(&rcc_hse_configs[RCC_CLOCK_HSE16_72MHZ]);
@@ -40,6 +57,7 @@ int main() {
   gpio_set(GPIOC, GPIO13);
 
   ssd1306_init(I2C1);
+  entire_display_on();
 
   while (1) {
     for (int i = 0; i < 200000; i++) {
@@ -50,4 +68,3 @@ int main() {
 
   return 0;
 }
-

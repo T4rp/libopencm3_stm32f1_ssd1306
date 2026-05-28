@@ -19,7 +19,13 @@ void ssd1306_send_data(uint32_t i2c, uint8_t data) {
     ;
 }
 
-void ssd1306_send_control(uint32_t i2c) { ssd1306_send_data(i2c, 0x00); };
+void ssd1306_send_control_command(uint32_t i2c, bool last) {
+  ssd1306_send_data(i2c, 0x00 | (last ? 0x00 : 0x80));
+}
+
+void ssd1306_send_control_data(uint32_t i2c, bool last) {
+  ssd1306_send_data(i2c, 0x40 | (last ? 0x00 : 0x80));
+}
 
 void ssd1306_set_contrast_control(uint32_t i2c, uint8_t contrast) {
   ssd1306_send_data(i2c, SSD1306_SET_CONTRAST_CONTROL);
@@ -196,7 +202,7 @@ void ssd1306_init(uint32_t i2c) {
 
   ssd1306_send_address(i2c, SSD1306_DEFAULT_ADDRESS);
 
-  ssd1306_send_control(i2c);
+  ssd1306_send_control_command(i2c, true);
 
   ssd1306_set_display_off(i2c);
   ssd1306_set_multiplex_ratio(i2c, 63); // device takes ratio - 1
@@ -208,10 +214,9 @@ void ssd1306_init(uint32_t i2c) {
   ssd1306_set_contrast_control(i2c, 0xc4);
   ssd1306_entire_display_on_ram(i2c);
   ssd1306_set_display_normal(i2c);
-  ssd1306_set_display_clock_and_oscillator_freq(i2c, 8, 0);
+  ssd1306_set_display_clock_and_oscillator_freq(i2c, 0, 8);
   ssd1306_enable_charge_pump(i2c);
   ssd1306_set_display_on(i2c);
-  ssd1306_entire_display_on(i2c);
 
   // ssd1306_set_memory_addressing_mode(i2c, SSD1306_ADDRESSING_MODE_PAGE);
   // ssd1306_set_precharge_period(i2c, 1, 15);
