@@ -1,3 +1,5 @@
+#include "fb_image_asuna.h"
+#include "fb_image_troll.h"
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/i2c.h>
 #include <libopencm3/stm32/rcc.h>
@@ -39,9 +41,20 @@ void entire_display_on() {
 
   ssd1306_send_address(I2C1, SSD1306_DEFAULT_ADDRESS);
 
-  for (int i = 0; i < 64; i++) {
-    ssd1306_send_control_data(I2C1, false);
-    ssd1306_send_data(I2C1, 0xf0);
+  for (;;) {
+    for (int i = 0; i < 1024; i++) {
+      ssd1306_send_control_data(I2C1, false);
+      ssd1306_send_data(I2C1, fb_image_data_troll[i]);
+    }
+
+    for (int i = 0; i < 2000000; i++) {
+      __asm__("nop");
+    }
+
+for (int i = 0; i < 1024; i++) {
+      ssd1306_send_control_data(I2C1, false);
+      ssd1306_send_data(I2C1, fb_image_data_asuna[i]);
+    }
   }
 
   while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))

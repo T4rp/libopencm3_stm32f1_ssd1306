@@ -5,4 +5,8 @@
 **.bin
 **/compile_commands.json
 **/compile_flags.txt
+**.png
+**.jpg
+**.bmp
+**.webp
 libopencm3
