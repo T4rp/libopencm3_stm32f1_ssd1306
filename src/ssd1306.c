@@ -215,10 +215,10 @@ void ssd1306_init(uint32_t i2c) {
   ssd1306_entire_display_on_ram(i2c);
   ssd1306_set_display_normal(i2c);
   ssd1306_set_display_clock_and_oscillator_freq(i2c, 0, 8);
+  ssd1306_set_memory_addressing_mode(i2c, SSD1306_ADDRESSING_MODE_HORIZONTAL);
   ssd1306_enable_charge_pump(i2c);
   ssd1306_set_display_on(i2c);
 
-  // ssd1306_set_memory_addressing_mode(i2c, SSD1306_ADDRESSING_MODE_PAGE);
   // ssd1306_set_precharge_period(i2c, 1, 15);
   // ssd1306_set_v_comh_deselect_level(i2c,
   // SSD1306_VCOMH_DESELECT_LEVEL_077_VCC);

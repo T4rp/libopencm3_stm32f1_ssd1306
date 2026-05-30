@@ -38,8 +38,11 @@ void entire_display_on() {
     ;
 
   ssd1306_send_address(I2C1, SSD1306_DEFAULT_ADDRESS);
-  ssd1306_send_control_command(I2C1, false);
-  ssd1306_entire_display_on(I2C1);
+
+  for (int i = 0; i < 64; i++) {
+    ssd1306_send_control_data(I2C1, false);
+    ssd1306_send_data(I2C1, 0xf0);
+  }
 
   while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))
     ;
